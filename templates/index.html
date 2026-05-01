@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dynamic Wumpus World Logic Agent — a Knowledge-Based AI agent using Propositional Logic and Resolution Refutation to navigate hazardous grids.">
+    <title>Wumpus World — AI Logic Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header id="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <div>
+                    <h1>Wumpus World</h1>
+                    <p class="subtitle">Knowledge-Based Logic Agent</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="badge-dot"></span>
+                <span id="status-text">Ready</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN LAYOUT ========== -->
+    <main id="app-main">
+        <!-- LEFT PANEL — Controls -->
+        <aside id="panel-controls" class="glass-panel">
+            <h2 class="panel-title">
+                <span class="panel-icon">⚙️</span> Configuration
+            </h2>
+
+            <div class="control-group">
+                <label for="input-rows">Grid Rows</label>
+                <input type="number" id="input-rows" value="4" min="3" max="10">
+            </div>
+            <div class="control-group">
+                <label for="input-cols">Grid Columns</label>
+                <input type="number" id="input-cols" value="4" min="3" max="10">
+            </div>
+
+            <button id="btn-new-game" class="btn btn-primary">
+                <span>🎲</span> New Game
+            </button>
+
+            <hr class="divider">
+
+            <h2 class="panel-title">
+                <span class="panel-icon">🎮</span> Controls
+            </h2>
+
+            <button id="btn-step" class="btn btn-accent" disabled>
+                <span>👣</span> Step
+            </button>
+            <button id="btn-auto" class="btn btn-secondary" disabled>
+                <span>⚡</span> Auto-Play
+            </button>
+            <button id="btn-reveal" class="btn btn-outline" disabled>
+                <span>👁️</span> Reveal Map
+            </button>
+
+            <hr class="divider">
+
+            <!-- LEGEND -->
+            <h2 class="panel-title">
+                <span class="panel-icon">🗺️</span> Legend
+            </h2>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-color legend-agent"></span> Agent</div>
+                <div class="legend-item"><span class="legend-color legend-safe"></span> Safe (proven)</div>
+                <div class="legend-item"><span class="legend-color legend-visited"></span> Visited</div>
+                <div class="legend-item"><span class="legend-color legend-frontier"></span> Frontier</div>
+                <div class="legend-item"><span class="legend-color legend-danger"></span> Dangerous</div>
+                <div class="legend-item"><span class="legend-color legend-unknown"></span> Unknown</div>
+            </div>
+        </aside>
+
+        <!-- CENTER — Grid -->
+        <section id="panel-grid" class="glass-panel">
+            <div id="grid-placeholder">
+                <div class="placeholder-content">
+                    <span class="placeholder-icon">🏰</span>
+                    <h3>Welcome, Agent</h3>
+                    <p>Configure the grid size and press <strong>New Game</strong> to begin.</p>
+                </div>
+            </div>
+            <div id="grid-container" style="display:none;"></div>
+            <!-- Current percepts bar -->
+            <div id="percepts-bar" style="display:none;">
+                <span class="percepts-label">Current Percepts:</span>
+                <div id="percepts-list"></div>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL — Metrics & Log -->
+        <aside id="panel-metrics" class="glass-panel">
+            <h2 class="panel-title">
+                <span class="panel-icon">📊</span> Metrics
+            </h2>
+
+            <div class="metrics-grid">
+                <div class="metric-card" id="metric-steps">
+                    <div class="metric-value" id="val-steps">0</div>
+                    <div class="metric-label">Agent Steps</div>
+                </div>
+                <div class="metric-card" id="metric-explored">
+                    <div class="metric-value" id="val-explored">0</div>
+                    <div class="metric-label">Cells Explored</div>
+                </div>
+                <div class="metric-card" id="metric-inferences">
+                    <div class="metric-value" id="val-inferences">0</div>
+                    <div class="metric-label">Inference Steps</div>
+                </div>
+                <div class="metric-card" id="metric-kb">
+                    <div class="metric-value" id="val-kb">0</div>
+                    <div class="metric-label">KB Clauses</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <h2 class="panel-title">
+                <span class="panel-icon">📜</span> Activity Log
+            </h2>
+            <div id="log-container">
+                <div class="log-empty">No activity yet.</div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ========== GAME OVER MODAL ========== -->
+    <div id="modal-overlay" class="modal-overlay" style="display:none;">
+        <div class="modal glass-panel">
+            <div id="modal-icon" class="modal-icon">🏆</div>
+            <h2 id="modal-title">Game Over</h2>
+            <p id="modal-message">The agent has completed its exploration.</p>
+            <div class="modal-stats" id="modal-stats"></div>
+            <button id="btn-modal-close" class="btn btn-primary">Play Again</button>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
