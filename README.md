@@ -21,36 +21,8 @@ The agent operates in a dynamic grid environment containing hidden **Pits** and 
 - **Real-Time Visualization** — Color-coded grid with animated agent movement
 - **Metrics Dashboard** — Tracks inference steps, KB size, and cells explored
 
----
 
-## 🏗️ Architecture
-
-```
-wumpus-world/
-├── app.py                 # Flask server (local development)
-├── requirements.txt       # Python dependencies
-├── vercel.json            # Vercel deployment configuration
-├── api/
-│   └── index.py           # Vercel serverless entry point
-├── wumpus/
-│   ├── __init__.py
-│   ├── logic.py           # Propositional Logic Engine (CNF + Resolution)
-│   ├── world.py           # Wumpus World Environment
-│   └── agent.py           # Knowledge-Based Agent (TELL/ASK)
-├── public/                # Static files for Vercel
-│   ├── index.html
-│   ├── css/style.css
-│   └── js/app.js
-├── templates/
-│   └── index.html         # HTML template (local dev)
-└── static/
-    ├── css/style.css
-    └── js/app.js
-```
-
----
-
-## 🔬 Algorithmic Implementation
+##  Algorithmic Implementation
 
 ### Knowledge Base (KB)
 
@@ -99,40 +71,8 @@ Before moving to an unvisited cell, the agent **ASK**s the KB:
 - **Inference Steps** — Total resolution steps performed
 - **KB Clauses** — Current number of clauses in the knowledge base
 
----
 
-## 🚀 How to Run Locally
-
-### Prerequisites
-- Python 3.10+
-
-### Steps
-
-```bash
-# 1. Install dependencies
-pip install flask flask-cors
-
-# 2. Run the server
-python app.py
-
-# 3. Open in browser
-# http://127.0.0.1:5000
-```
-
----
-
-## 🌐 Deployment (Vercel)
-
-The project is configured for deployment on **Vercel**:
-
-1. Push this repository to GitHub
-2. Go to [vercel.com](https://vercel.com) → Import the GitHub repo
-3. Vercel auto-detects the configuration and deploys
-4. Get your live URL!
-
----
-
-## 🛠️ Technologies Used
+##  Technologies Used
 
 | Technology | Purpose |
 |-----------|---------|
@@ -142,13 +82,4 @@ The project is configured for deployment on **Vercel**:
 | **HTML/CSS** | UI with dark glassmorphism theme |
 | **Vercel** | Cloud deployment (Python serverless) |
 
----
 
-## 📡 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/new-game` | POST | Create a new game `{rows, cols}` |
-| `/api/step` | POST | Agent takes one step `{game_id}` |
-| `/api/auto-play` | POST | Agent plays to completion `{game_id}` |
-| `/api/state` | POST | Get current game state `{game_id}` |
